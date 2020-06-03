@@ -1,0 +1,10 @@
+parameters:
+  # ...
+  mailer.transport: sendmail
+
+services:
+  mailer:
+    class:     Mailer
+    #arguments: ['%mailer.transport%']
+    calls:
+      - [addConnection, ['@mailer']]
