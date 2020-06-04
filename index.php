@@ -25,8 +25,15 @@ $containerBuilder->get('manager');
 
 $results = Manager::select(Manager::raw('select * from users'));
 
+$config = [];
+
+$app = new \framework\App($config);
+
+$app->run();
 
 var_dump($results);
+
+
 
 
 

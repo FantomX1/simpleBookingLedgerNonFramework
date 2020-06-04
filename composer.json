@@ -9,7 +9,7 @@
         "symfony/config": "^5.1"
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "": "./"
         }
     }

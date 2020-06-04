@@ -10,15 +10,15 @@ services:
 
       - [addConnection,
          [
-         {
-           driver: 'mysql',
-           host: 'mysqlservice',
-           database: 'simpleBookingLedger',
-           username: 'root',
-           password: 'root',
-           charset: 'utf8',
-           collation: 'utf8_unicode_ci',
-           prefix: '',
-         }
+           {
+             driver: 'mysql',
+             host: 'mysqlservice',
+             database: 'simpleBookingLedger',
+             username: 'root',
+             password: 'root',
+             charset: 'utf8',
+             collation: 'utf8_unicode_ci',
+             prefix: '',
+           }
          ]]
       - [setAsGlobal,[]]
