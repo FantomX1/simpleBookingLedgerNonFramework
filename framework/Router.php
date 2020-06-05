@@ -15,6 +15,11 @@ class Router
     public function getRoute()
     {
 
+        // a get params lepsie, a kady preprocessed, ci len params,
+        // a alebo aj konkretne a druh kontroleru si zisti
+        // ktore parametre si prevezme, ze rpc si kontrolelr nevezme ani z url
+        // resp aj z url ale akciu nie z url
+
         $controller = "Site";
         $action = "index";
 
@@ -22,8 +27,8 @@ class Router
         if (isset($_GET['r'])) {
 
             $elements = explode('/' , $_GET['r']);
-            $controller = $elements[0];
-            $action = $elements[1];
+            $controller =  $elements[0] ? $elements[0]: $controller;
+            $action =  $elements[1] ? $elements[1]: $action;
         }
 
 
