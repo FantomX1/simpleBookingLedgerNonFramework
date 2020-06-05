@@ -1,6 +1,11 @@
 parameters:
   # ...
-  mailer.transport: sendmail
+#  mailer.transport: "%kernel.project_dir%"
+  doctrine.paths: ['./models/entity', './models/repository']
+  db.host: 'mysqlservice'
+  db.name: 'simpleBookingLedger'
+  db.user: 'root'
+  db.pass: 'root'
 
 services:
   manager:
@@ -10,40 +15,36 @@ services:
     calls:
       - [addConnection,
          [
-           {
-             driver: 'mysql',
-             host: 'mysqlservice',
-             database: 'simpleBookingLedger',
-             username: 'root',
-             password: 'root',
-             charset: 'utf8',
-             collation: 'utf8_unicode_ci',
-             prefix: '',
-           }
+         {
+           driver:    'mysql',
+           host:      '%db.host%',
+           database:  '%db.name%',
+           username:  '%db.user%',
+           password:  '%db.pass%',
+           charset:   'utf8',
+           collation: 'utf8_unicode_ci',
+           prefix: '',
+         }
          ]]
       - [setAsGlobal,[]]
-#  @TODO:
-#  entityManager:
-#    # uses laravel data access object in symphony dependency injection
-#    class: \Doctrine\ORM\EntityManager;
-#    #arguments: ['%mailer.transport%']
-#    calls:
-#      - [create,
-#         [
-#         {
-#           driver: 'pdo_mysql',
-#           host: 'mysqlservice',
-#           database: 'simpleBookingLedger',
-#           username: 'root',
-#           password: 'root'
-#         },
-#         # needs a config originating as a return result from another function call like Nette
-#  $config                    = Setup::createAnnotationMetadataConfiguration(
-#  $paths,
-#  $isDevMode,
-#  $proxyDir,
-#  $cache,
-#  $useSimpleAnnotationReader
-#  );
-#         ]]
-#      - [setAsGlobal,[]]
+
+  # workaround by a factory for
+  setup:
+    class: Doctrine\ORM\Tools\Setup
+  #    factory:   ['Doctrine\ORM\Tools\Setup', createAnnotationMetadataConfiguration]
+  #    arguments: [[true, null, null, false]]
+
+  entityManager:
+    factory:   ['Doctrine\ORM\EntityManager', create]
+
+    # how to use DIR [parameter("kernel.project_dir")] outside symfony
+    arguments: [
+    {
+     driver:   'pdo_mysql',
+     host:     '%db.host%',
+     dbname:   '%db.name%',
+     user:     '%db.user%',
+     password: '%db.pass%'
+    },
+    '@=service("setup").createAnnotationMetadataConfiguration(parameter("doctrine.paths"), true, null, null, false)']
+

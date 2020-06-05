@@ -1,0 +1,95 @@
+parameters:
+  # ...
+  mailer.transport: "%kernel.project_dir%"
+  doctrine.paths: ['./models/entity', './models/repository']
+
+services:
+  manager:
+    # uses laravel data access object in symphony dependency injection
+    class: \Illuminate\Database\Capsule\Manager
+    #arguments: ['%mailer.transport%']
+    calls:
+      - [addConnection,
+         [
+           {
+             driver: 'mysql',
+             host: 'mysqlservice',
+             database: 'simpleBookingLedger',
+             username: 'root',
+             password: 'root',
+             charset: 'utf8',
+             collation: 'utf8_unicode_ci',
+             prefix: '',
+           }
+         ]]
+      - [setAsGlobal,[]]
+
+# workaround by a factory for
+  setup:
+    class: Doctrine\ORM\Tools\Setup
+#    factory:   ['Doctrine\ORM\Tools\Setup', createAnnotationMetadataConfiguration]
+#    arguments: [[true, null, null, false]]
+
+  entityManager:
+    factory:   ['Doctrine\ORM\EntityManager', create]
+#    arguments: ['@=service("setup").createAnnotationMetadataConfiguration(true, null, null, false)']
+#    arguments: [[],'@="Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(true, null, null, false)"']
+#    arguments: [[],'@=service("setup").createAnnotationMetadataConfiguration([%kernel.project_dir%],true, null, null, false)']
+# how to use DIR [parameter("kernel.project_dir")] outside symfony
+    arguments: [
+                {driver: 'pdo_mysql',
+                 host: 'mysqlservice',
+                 dbname: 'simpleBookingLedger',
+                 user: 'root',
+                 password: 'root'},
+                '@=service("setup").createAnnotationMetadataConfiguration(parameter("doctrine.paths"),true, null, null, false)']
+
+#  entityManager:
+#    # uses laravel data access object in symphony dependency injection
+#    class: \Doctrine\ORM\EntityManager;
+#    #arguments: ['%mailer.transport%']
+#    calls:
+#      - [create,
+#         [
+#         {
+#           driver: 'pdo_mysql',
+#           host: 'mysqlservice',
+#           database: 'simpleBookingLedger',
+#           username: 'root',
+#           password: 'root'
+#         },
+#         # needs a config originating as a return result from another function call like Nette
+#  $config                    = Setup::createAnnotationMetadataConfiguration(
+#  $paths,
+#  $isDevMode,
+#  $proxyDir,
+#  $cache,
+#  $useSimpleAnnotationReader
+#  );
+#         ]]
+#      - [setAsGlobal,[]]
+##  @TODO:
+##  entityManager:
+##    # uses laravel data access object in symphony dependency injection
+#    class: \Doctrine\ORM\EntityManager;
+#    #arguments: ['%mailer.transport%']
+#    calls:
+#      - [create,
+#         [
+#         {
+#           driver: 'pdo_mysql',
+#           host: 'mysqlservice',
+#           database: 'simpleBookingLedger',
+#           username: 'root',
+#           password: 'root'
+#         },
+#         # needs a config originating as a return result from another function call like Nette
+#  $config                    = Setup::createAnnotationMetadataConfiguration(
+#  $paths,
+#  $isDevMode,
+#  $proxyDir,
+#  $cache,
+#  $useSimpleAnnotationReader
+#  );
+#         ]]
+#      - [setAsGlobal,[]]

@@ -4,8 +4,8 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 //
 $paths = [
-    __DIR__.'/models/entity',
-    __DIR__.'/models/repository'
+    './models/entity',
+    './models/repository'
 ];
 // this might not work due to cache , not confirmed , not resimulated
 // https://stackoverflow.com/questions/48050638/symfony-3-4-no-metadata-classes-to-process-error
@@ -32,6 +32,8 @@ $isDevMode                 = true;
 $proxyDir                  = null;
 $cache                     = null;
 $useSimpleAnnotationReader = false;
+
+if (1) {
 $config                    = Setup::createAnnotationMetadataConfiguration(
     $paths,
     $isDevMode,
@@ -39,6 +41,10 @@ $config                    = Setup::createAnnotationMetadataConfiguration(
     $cache,
     $useSimpleAnnotationReader
 );
+
+}
+
+
 // or if you prefer yaml or XML
 //$config = Setup::createXMLMetadataConfiguration(array(__DIR__."/config/xml"), $isDevMode);
 //$config = Setup::createYAMLMetadataConfiguration(array(__DIR__."/config/yaml"), $isDevMode);
@@ -57,5 +63,22 @@ $conn = array(
     'host'     => 'mysqlservice',
 );
 
+#$entityManager = EntityManager::create($conn, $config);
+#$entityManager = $containerBuilder->get('setup');
+
+//$containerBuilder->setParameter('mailer.transport', 'sendmail');
+if (0){
+$containerBuilder
+    ->register('entityManager', EntityManager::class)
+ //   ->addArgument('%mailer.transport%')
+    //->addMethodCall('create', [$conn, $config])
+    ->setFactory('Doctrine\ORM\EntityManager::create')
+    ->addArgument($conn)
+    ->addArgument($config)
+;
+}
+
+$entityManager = $containerBuilder->get('entityManager');
+$a=2;
 // obtaining the entity manager
-$entityManager = EntityManager::create($conn, $config);
+//$entityManager = EntityManager::create($conn, $config);
