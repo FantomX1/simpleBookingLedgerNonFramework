@@ -11,9 +11,6 @@ USE Doctrine\ORM\Mapping AS ORM;
 class Loan
 {
 
-
-
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -22,20 +19,39 @@ class Loan
      */
     protected $id;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Version
+     */
+    protected $createdTs;
 
-//    /**
-//     * @TODO
-//     * @ORM\OneToMany
-//     * @var
-//     */
-//    protected $addedTransaction;
-//
-//    public function __construct()
-//    {
-//
-//        $this->addedTransaction = new \Doctrine\Common\Collections\ArrayCollection();
-//
-//    }
+    /**
+     * @ORM\Column(type="text", length=255)
+     * @var
+     */
+    protected $clientName;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Transaction",  mappedBy="loanId")
+     * @var
+     */
+    protected $transactions;
+
+
+    public function __construct()
+    {
+
+        $this->transactions = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
+
+
+    public function addTransaction(Transaction $transaction)
+    {
+        $this->transactions[] = $transaction;
+    }
+
+
 
 
 }

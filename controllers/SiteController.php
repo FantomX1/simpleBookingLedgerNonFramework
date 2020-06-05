@@ -4,16 +4,30 @@
 namespace controllers;
 
 
-class SiteController
+use framework\BaseController;
+
+/**
+ * Class SiteController
+ * @package controllers
+ */
+class SiteController extends BaseController
 {
 
 
+    /**
+     *
+     */
     public function actionIndex()
     {
 
 
-        echo 'mega test';
-
+        $this->render(
+            "detail",
+            [
+                'loanId' => '12345',
+            ]
+        )
+        ;
     }
 
 }

@@ -4,14 +4,27 @@
 namespace framework;
 
 
+/**
+ * Class Router
+ * @package framework
+ */
 class Router
 {
 
 
+    /**
+     * @var
+     */
     public $controller;
 
+    /**
+     * @var
+     */
     public $action;
 
+    /**
+     * @return array
+     */
     public function getRoute()
     {
 

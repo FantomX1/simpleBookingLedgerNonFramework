@@ -2,15 +2,16 @@ parameters:
   # ...
 #  mailer.transport: "%kernel.project_dir%"
   doctrine.paths: ['./models/entity', './models/repository']
-  db.host: 'mysqlservice'
-  db.name: 'simpleBookingLedger'
-  db.user: 'root'
-  db.pass: 'root'
+  db.host: '%env(DB_HOST)%'
+  db.name: '%env(DB_DATABASE)%'
+  db.user: "%env(DB_USER)%"
+  db.pass: '%env(DB_PASS)%'
 
 services:
   manager:
     # uses laravel data access object in symphony dependency injection
     class: \Illuminate\Database\Capsule\Manager
+    public: true
     #arguments: ['%mailer.transport%']
     calls:
       - [addConnection,
@@ -30,12 +31,16 @@ services:
 
   # workaround by a factory for
   setup:
+    public: true
     class: Doctrine\ORM\Tools\Setup
   #    factory:   ['Doctrine\ORM\Tools\Setup', createAnnotationMetadataConfiguration]
   #    arguments: [[true, null, null, false]]
 
   entityManager:
+    # after compile it needs to be class here even when using factory and public if not autowired into a controller
+    class: 'Doctrine\ORM\EntityManager'
     factory:   ['Doctrine\ORM\EntityManager', create]
+    public: true
 
     # how to use DIR [parameter("kernel.project_dir")] outside symfony
     arguments: [

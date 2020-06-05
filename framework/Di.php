@@ -4,13 +4,27 @@
 namespace framework;
 
 
+/**
+ * Class Di
+ * @package framework
+ */
 class Di
 {
-    
+
+    /**
+     * @var array
+     */
     private $registry = [];
 
+    /**
+     * @var
+     */
     private $config;
 
+    /**
+     * Di constructor.
+     * @param $config
+     */
     public function __construct($config)
     {
 
@@ -20,6 +34,11 @@ class Di
     }
 
 
+    /**
+     * @param $service
+     * @return mixed
+     * @throws \Exception
+     */
     public function __get($service)
     {
 

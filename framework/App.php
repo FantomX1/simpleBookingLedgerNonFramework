@@ -4,14 +4,27 @@
 namespace framework;
 
 
+/**
+ * Class App
+ * @package framework
+ */
 class App
 {
 
+    /**
+     * @var
+     */
     public static $app;
+    /**
+     * @var Di
+     */
     public $di;
 
 
-
+    /**
+     * App constructor.
+     * @param $config
+     */
     public function __construct($config)
     {
         $config = $config + $this->defaultServices();
@@ -24,7 +37,9 @@ class App
     }
 
 
-
+    /**
+     * @return mixed
+     */
     public function run()
     {
 
@@ -35,13 +50,12 @@ class App
 //            [$controller, "action".$route[1]]
 //        );
         return $controller->{"action".$route[1]}();
-
-
-
-
     }
 
 
+    /**
+     * @return array
+     */
     private function defaultServices()
     {
 
