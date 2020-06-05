@@ -6,7 +6,8 @@
         "gabordemooij/redbean": "^5.5",
         "symfony/yaml": "^5.1",
         "doctrine/inflector": "1.4.3",
-        "symfony/config": "^5.1"
+        "symfony/config": "^5.1",
+        "doctrine/orm": "^2.7"
     },
     "autoload": {
         "psr-4": {

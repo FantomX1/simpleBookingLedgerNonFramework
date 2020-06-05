@@ -4,10 +4,10 @@ parameters:
 
 services:
   manager:
+    # uses laravel data access object in symphony dependency injection
     class: \Illuminate\Database\Capsule\Manager
     #arguments: ['%mailer.transport%']
     calls:
-
       - [addConnection,
          [
            {
@@ -22,3 +22,21 @@ services:
            }
          ]]
       - [setAsGlobal,[]]
+#  @TODO:
+#  entityManager:
+#    # uses laravel data access object in symphony dependency injection
+#    class: \Doctrine\ORM\EntityManager;
+#    #arguments: ['%mailer.transport%']
+#    calls:
+#      - [create,
+#         [
+#         {
+#           driver: 'pdo_mysql',
+#           host: 'mysqlservice',
+#           database: 'simpleBookingLedger',
+#           username: 'root',
+#           password: 'root'
+#         },
+#         # needs a config originating as a return result from another function call like Nette
+#         ]]
+#      - [setAsGlobal,[]]
