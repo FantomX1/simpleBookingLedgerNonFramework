@@ -8,7 +8,7 @@ namespace controllers;
  * Class WsController
  * @package controllers
  */
-class WsController extends \framework\WsController
+class WsController extends  \fantomx1\PhanconX1\WsController
 {
 
 

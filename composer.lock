@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12cb9b9b47730c688bf0b29cf705578a",
+    "content-hash": "171d5cfed5a2fe54652d5638a38804fc",
     "packages": [
         {
             "name": "cakephp/collection",
@@ -1289,6 +1289,25 @@
                 "static"
             ],
             "time": "2020-03-27T11:06:43+00:00"
+        },
+        {
+            "name": "fantomx1/phanconx1framework",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../fantomx1/PhanconX1Framework",
+                "reference": "0777cc5de83854ce757c2ac25cd9e065e7ae484a"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "fantomx1\\PhanconX1\\": "./PhanconX1"
+                }
+            },
+            "description": "PhanconX1 framework",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "gabordemooij/redbean",
@@ -3624,7 +3643,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "fantomx1/phanconx1framework": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

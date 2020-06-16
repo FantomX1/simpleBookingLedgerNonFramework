@@ -11,7 +11,7 @@ require "bootstrap.php";
 #######################
 $appConfig = [];
 
-$app = new \framework\App($appConfig);
+$app = new \fantomx1\PhanconX1\App($appConfig);
 
 $app->run();
 

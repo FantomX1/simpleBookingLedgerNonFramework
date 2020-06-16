@@ -4,7 +4,7 @@
 namespace controllers;
 
 
-use framework\BaseController;
+use  \fantomx1\PhanconX1\BaseController;
 
 /**
  * Class SiteController
