@@ -4,8 +4,19 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "171d5cfed5a2fe54652d5638a38804fc",
+    "content-hash": "d8e73a85eb73b172aa04aeceffc755e2",
     "packages": [
+        {
+            "name": "blackrockdigital/startbootstrap-freelancer",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BlackrockDigital/startbootstrap-freelancer.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2020-05-20T21:01:49+00:00"
+        },
         {
             "name": "cakephp/collection",
             "version": "4.0.8",
@@ -3644,7 +3655,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "fantomx1/phanconx1framework": 20
+        "fantomx1/phanconx1framework": 20,
+        "blackrockdigital/startbootstrap-freelancer": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
