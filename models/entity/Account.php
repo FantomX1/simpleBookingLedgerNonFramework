@@ -1,6 +1,10 @@
 <?php
 
+namespace models\entity;
+
+
 USE Doctrine\ORM\Mapping AS ORM;
+
 
 
 /**
@@ -50,6 +54,90 @@ class Account
 
         $this->transactions = new \Doctrine\Common\Collections\ArrayCollection();
 
+    }
+
+    /**$bug = new Bug();
+    $bug->setDescription("Something does not work!");
+    $bug->setCreated(new DateTime("now"));
+    $bug->setStatus("OPEN")
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedTs()
+    {
+        return $this->createdTs;
+    }
+
+    /**
+     * @param mixed $createdTs
+     * @return Account
+     */
+    public function setCreatedTs($createdTs)
+    {
+        $this->createdTs = $createdTs;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClientName()
+    {
+        return $this->clientName;
+    }
+
+    /**
+     * @param mixed $clientName
+     * @return Account
+     */
+    public function setClientName($clientName)
+    {
+        $this->clientName = $clientName;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInitialAmount()
+    {
+        return $this->initialAmount;
+    }
+
+    /**
+     * @param mixed $initialAmount
+     * @return Account
+     */
+    public function setInitialAmount($initialAmount)
+    {
+        $this->initialAmount = $initialAmount;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTransactions()
+    {
+        return $this->transactions;
+    }
+
+    /**
+     * @param mixed $transactions
+     * @return Account
+     */
+    public function setTransactions($transactions)
+    {
+        $this->transactions = $transactions;
+        return $this;
     }
 
 

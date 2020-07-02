@@ -6,6 +6,7 @@ namespace controllers;
 
 use \fantomx1\PhanconX1\BaseController;
 use fantomx1\PhanconX1\Template;
+use models\entity\Account;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -57,14 +58,6 @@ class SiteController extends BaseController
             ->getForm();
 
 
-
-        $twig = $this->di->get('twig');
-//        var_dump($twig->render('new.html.twig', [
-//            'form' => $form->createView(),
-//        ]));
-
-
-
         $request = Request::createFromGlobals();
 
         $form->handleRequest($request);
@@ -72,51 +65,54 @@ class SiteController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 //
-//            $user = new \Account();
-//            $user->setName($newUsername);
-//
-//            $entityManager->persist($user);
-//            $entityManager->flush();
 
 
-            var_dump($data);
-            die();
+            $account = new Account();
+            $account->setInitialAmount($data['initialAmount']);
+            $account->setClientName($data['client']);
+            $account->setCreatedTs(new \DateTime("now"));
 
-            // ... perform some action, such as saving the data to the database
+            $this->di->get('entityManager')->persist($account);
+            $this->di->get('entityManager')->flush();
 
-//            $response = new RedirectResponse('/task/success');
-//            $response->prepare($request);
-//
-//            return $response->send();
+            header('Location: ?r=site/index');
+
+
+//            var_dump($data);
+//            die();
+
         }
 
+        $twig = $this->di->get('twig');
 
+        $path = Template::locateTemplate('new.html.twig', $this, true);
+        $path = str_replace(".php", '', $path);
 
-
-
-        $path = str_replace(
-            ".php",
-            '',
-            Template::locateTemplate('new.html.twig', $this, true)
+        $result =  $twig->render(
+            $path,
+            [
+                'form' => $form->createView(),
+            ]
         );
-
-        // use symfony forms , echo
-        // relative way, to avoid ambiguousity
-        // $result =  $twig->render('site/new.html.twig', [
-        //$result =  $twig->render('new.html.twig', [
-
-        $result =  $twig->render($path, [
-            'form' => $form->createView(),
-        ]);
 
         // wrap the twig result to the layout
         $this->render(
             '',
             [],
             $result
-        )
-        ;
+        );
+    }
 
+
+    public function actionCreateDraftTodo()
+    {
+        // @TODO: response, request, routing
+        // ... perform some action, such as saving the data to the database
+
+//            $response = new RedirectResponse('/task/success');
+//            $response->prepare($request);
+//
+//            return $response->send();
     }
 
 
