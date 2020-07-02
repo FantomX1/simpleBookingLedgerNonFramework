@@ -6,7 +6,7 @@ USE Doctrine\ORM\Mapping AS ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="Transaction")
- * Class Loan
+
  */
 class Transaction
 {
@@ -48,7 +48,7 @@ class Transaction
     protected $debit;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Loan", inversedBy="transactions")
+     * @ORM\ManyToOne(targetEntity="Account", inversedBy="transactions")
      * @var
      */
     protected $loanId;
@@ -151,7 +151,7 @@ class Transaction
      * @param mixed $loanId
      * @return Transaction
      */
-    public function setLoanId(Loan $loanId)
+    public function setLoanId(Account $loanId)
     {
         $loanId->addTransaction($this);
         $this->loanId = $loanId;

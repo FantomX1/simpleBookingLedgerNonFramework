@@ -5,10 +5,10 @@ USE Doctrine\ORM\Mapping AS ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Loan")
+ * @ORM\Table(name="Account")
  * Class Loan
  */
-class Loan
+class Account
 {
 
     /**
@@ -30,6 +30,13 @@ class Loan
      * @var
      */
     protected $clientName;
+
+
+    /**
+     * @ORM\Column(type="float")
+     * @var
+     */
+    protected $initialAmount;
 
     /**
      * @ORM\OneToMany(targetEntity="Transaction",  mappedBy="loanId")

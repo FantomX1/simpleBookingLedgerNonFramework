@@ -29,6 +29,10 @@ services:
          ]]
       - [setAsGlobal,[]]
 
+  router:
+      class: fantomx1\PhanconX1\Router
+      public: true
+
   # workaround by a factory for
   setup:
     public: true
