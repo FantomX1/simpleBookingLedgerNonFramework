@@ -5,6 +5,7 @@ namespace controllers;
 
 
 use \fantomx1\PhanconX1\BaseController;
+use fantomx1\PhanconX1\Template;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -57,30 +58,19 @@ class SiteController extends BaseController
 
 
 
-
-
-
-
         $twig = $this->di->get('twig');
-        $twig = $GLOBALS['twig'];
 //        var_dump($twig->render('new.html.twig', [
 //            'form' => $form->createView(),
 //        ]));
 
 
-        $twig = $GLOBALS['twig'];
-
-//        $form = $formFactory->createBuilder()
-//            ->add('task', TextType::class)
-//            ->add('dueDate', DateType::class)
-//            ->getForm();
 
         $request = Request::createFromGlobals();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $data = $form->getData();
+            $data = $form->getData();
 //
 //            $user = new \Account();
 //            $user->setName($newUsername);
@@ -102,25 +92,43 @@ class SiteController extends BaseController
 
 
 
-        // use symfony forms
-        echo $twig->render('new.html.twig', [
+
+
+        $path = str_replace(
+            ".php",
+            '',
+            Template::locateTemplate('new.html.twig', $this, true)
+        );
+
+        // use symfony forms , echo
+        // relative way, to avoid ambiguousity
+        // $result =  $twig->render('site/new.html.twig', [
+        //$result =  $twig->render('new.html.twig', [
+
+        $result =  $twig->render($path, [
             'form' => $form->createView(),
         ]);
 
+        // wrap the twig result to the layout
+        $this->render(
+            '',
+            [],
+            $result
+        )
+        ;
+
+    }
 
 
+    public function actionCreateNonTwig()
+    {
 
-
-
-
-        //$abc =$form->createView();
-//        $this->render(
-//            "create",
-//            [
-//                'form' => $abc
-//            ]
-//        )
-//        ;
+        $this->render(
+            "create",
+            [
+                'form' => '123'
+            ]
+        );
     }
 
 }
