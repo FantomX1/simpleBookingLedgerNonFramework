@@ -110,15 +110,6 @@ $translator = new Translator('en');
 // adds the TranslationExtension (it gives us trans filter)
 $twig->addExtension(new TranslationExtension($translator));
 
-$formFactory = Forms::createFormFactoryBuilder()
-    // ...
-    ->getFormFactory();
-
-// creates a form factory
-$formFactory = Forms::createFormFactoryBuilder()
-    // ...
-    ->getFormFactory();
-
 
 //$containerBuilder->register('adas',$ads);
 $containerBuilder->set('twig' , $twig);
