@@ -61,6 +61,7 @@ class SiteController extends BaseController
 
 
 
+        $twig = $this->di->get('twig');
         $twig = $GLOBALS['twig'];
 //        var_dump($twig->render('new.html.twig', [
 //            'form' => $form->createView(),
